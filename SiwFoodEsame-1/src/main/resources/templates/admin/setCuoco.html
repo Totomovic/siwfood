@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cuochi</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/css/global.css">
+		<link rel="stylesheet" href="/css/cuochi.css">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	</head>
+	<body>
+	<!-- INTESTAZIONE -->
+	<header class="header">
+        <div class="icona"><img src="/images/titolo.png" width="40%" style="padding-bottom: 15px;"/></div>
+        <ul class="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/ricetta">Ricette</a></li>
+            <li><a href="/cuoco">Cuochi</a></li>
+			<div th:if="${userDetails}">
+				<li>
+					<a href="/logout">
+						<i class='bx bx-log-out'style="font-size: 1.4rem;" ></i>
+					</a>
+				</li>
+			</div>
+			<div th:if="${userDetails}">
+				<li>
+					<a href="/dettagliUser">
+						<i class='bx bxs-user-detail'style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+			<div th:unless="${userDetails}">
+				<li>
+					<a href="/login">
+						<i class='bx bx-log-in'	style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+        </ul>
+	</header>
+	<!--CORPO-->
+	<div class="container-nav"></div>
+	<div class="padding" style="padding: 40px;">
+			<h1 style="padding-bottom: 10px;">Cuochi</h1>
+				<div th:if="${cuochi==null || cuochi.isEmpty()}">Non ci sono cuochi nel sistema</div>
+				<div id="cardContainer" style="margin-left: 20px;">
+						<div style="display: flex;flex-direction: column;align-items: center;" th:each="cuoco: ${cuochi}" >
+					       <div  class="card">
+							<img style="width: 100%;box-shadow: 0 2px 4px rgba(0,0,0,0.1);border-radius: 2%;"th:src="@{'data:image/jpeg;base64,'+${cuoco.copertina.generateBase64Image()}}" alt="ricetta immagine">
+<!--								<img style="width: 100%;box-shadow: 0 2px 4px rgba(0,0,0,0.1);border-radius: 2%;" src="/images/iconaSiwFood.png" alt="ricetta immagine">-->
+							</div>
+							<a th:href="@{'/admin'+'/'+${ricetta.id}+'/'+${cuoco.id}}"
+								th:text="${cuoco.nome}" style="padding: 5px;text-transform: uppercase;color: black;"></a>
+					   </div>
+				  </div>
+			  </div>
+	</body>
+</html>

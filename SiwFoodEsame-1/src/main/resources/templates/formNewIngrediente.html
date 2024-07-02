@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Aggiungi Ricetta</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/css/global.css">
+		<link rel="stylesheet" href="/css/formNewIngrediente.css">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	</head>
+	<body>
+	<!-- INTESTAZIONE -->
+	<header class="header">
+        <div class="icona"><img src="/images/titolo.png" width="40%" style="padding-bottom: 15px;"/></div>
+        <ul class="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/ricetta">Ricette</a></li>
+            <li><a href="/cuoco">Cuochi</a></li>
+			<div th:if="${userDetails}">
+				<li>
+					<a href="/logout">
+						<i class='bx bx-log-out' style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+			<div th:if="${userDetails}">
+				<li>
+					<a href="/dettagliUser">
+						<i class='bx bxs-user-detail' style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+			<div th:unless="${userDetails}">
+				<li>
+					<a href="/login">
+						<i class='bx bx-log-in'	style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+        </ul>
+    </header>
+	<!--CORPO-->
+<!--	<div class="container-nav"></div>-->
+	<div class="body">
+			<div class="wrapper">
+				<div class="container">
+				    <div class="card">
+						<h2>Aggiungi Ingrediente</h2>
+						<form class="form-container" th:action="@{'/newIngrediente' + '/'+${ricetta.id}}" method="POST" th:object="${ingrediente}">
+					  		<div th:if="${#fields.hasGlobalErrors()}">
+					  			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 
+					  		</div>
+							<input type="text" class="input-field"  th:field="${ingrediente.nome}"placeholder="Nome">
+							<input type="number" class="input-field"th:field="${ingrediente.quantita}"placeholder="Quantità">
+							<input type="text" class="input-field"  th:field="${ingrediente.misura}"placeholder="Unità di Misura">
+							<button type="submit" class="submit-button">Conferma</button>
+						</form>
+					</div>
+				</div>
+			</div>
+	  </div>			
+	</body>
+</html>

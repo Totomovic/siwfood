@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ricette</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/css/global.css">
+		<link rel="stylesheet" href="/css/ricette.css">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	</head>
+	<body>
+	<!-- INTESTAZIONE -->
+	<header class="header">
+        <div class="icona"><img src="/images/titolo.png" width="40%" style="padding-bottom: 15px;"/></div>
+        <ul class="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/ricetta">Ricette</a></li>
+            <li><a href="/cuoco">Cuochi</a></li>
+			<div th:if="${userDetails}">
+				<li>
+					<a href="/logout">
+						<i class='bx bx-log-out'style="font-size: 1.4rem;" ></i>
+					</a>
+				</li>
+			</div>
+			<div th:if="${userDetails}">
+				<li>
+					<a href="/dettagliUser">
+						<i class='bx bxs-user-detail'style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+			<div th:unless="${userDetails}">
+				<li>
+					<a href="/login">
+						<i class='bx bx-log-in'	style="font-size: 1.4rem;"></i>
+					</a>
+				</li>
+			</div>
+        </ul>
+    </header>
+	<!--CORPO-->
+	<div class="container-nav"></div>
+	<div class="padding" style="padding: 40px;">
+			<h1 style="padding-bottom: 10px;">Ricette</h1>
+				<div th:if="${ricette==null || ricette.isEmpty()}">Non ci sono ricette nel sistema</div>
+				<ul class="containerFoto">	
+					<li th:each="ricetta: ${ricette}">
+						<div class="image"><img src="/images/iconaSiwFood.png" width="100%"></div>	
+							<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}"
+								th:text="${ricetta.nome}" style="padding: 20px;"></a>
+<!--							<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}"-->
+<!--								th:text="${ricetta.nome}" style="padding: 20px;"></a>-->
+					</li>						
+				</ul>
+<!--			<section>-->
+<!--				<div class="container-botton"></div>-->
+<!--				<div class="footer-container"></div>-->
+<!--			</section>-->
+			
+	</body>
+</html>
